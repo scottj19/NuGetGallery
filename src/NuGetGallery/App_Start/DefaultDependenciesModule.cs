@@ -363,11 +363,16 @@ namespace NuGetGallery
             builder.Register(c => mailSenderFactory())
                 .AsSelf()
                 .As<IMailSender>()
-                .InstancePerLifetimeScope();
+                .InstancePerDependency();
 
             builder.RegisterType<BackgroundMessageService>()
                 .AsSelf()
                 .As<IMessageService>()
+                .InstancePerDependency();
+
+            builder.RegisterType<BackgroundMessageServiceFactory>()
+                .AsSelf()
+                .As<IBackgroundMessageServiceFactory>()
                 .InstancePerLifetimeScope();
 
             builder.Register(c => HttpContext.Current.User)
